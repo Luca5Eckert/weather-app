@@ -7,7 +7,7 @@ function Weather(actual, nextDays) {
 }
 
 /**
- * Busca o clima atual e a previsão para os próximos X dias simultaneamente.
+ * Busca o clima atual e a previsão para os próximos 3 dias simultaneamente.
  * @param {string} city - Nome da cidade.
  */
 export async function fetchWeather(city) {
@@ -71,7 +71,6 @@ const fetchNextThreeDays = async (city) => {
         }
 
         const data = await response.json(); 
-        
         
         const nextDays = data.forecast.forecastday.slice(1, DAYS_TO_FORECAST + 1);
 
