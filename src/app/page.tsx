@@ -1,23 +1,26 @@
 import SearchBar from '@/components/ui/SearchBar';
 import WeatherInfo from '@/components/ui/weather-info';
 import { fetchWeather } from '@/lib/weather-api';
-import { useEffect } from 'react';
+import { use, useEffect, useState } from 'react';
 
-const baseCity = "São Leopoldo";
-const weatherData = await fetchWeather(baseCity);
+import type { WeatherInfo as ApiWeatherInfo } from '@/lib/weather-api';
+
 
 export default function Home() {
-  const [weather, setWeather] = 
+  const baseCity = "São Leopoldo";
+
+  const [weather, setWeather] = useState<ApiWeatherInfo | null>(null);
 
   useEffect(() => {
-    setWeather(weatherData);
+    
+
   }, [baseCity]);
 
   return (
 
     <WeatherInfo
       city='São Leopoldo'
-      dayOfWeek='Segunda-feira'
+      dayOfWeek="Segunda-feira"
       temp={22}
       windKph={15}
       isDay={1}
