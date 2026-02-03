@@ -1,6 +1,6 @@
 import SearchBar from "@/components/ui/SearchBar";
 import { useState } from "react";
-import { WeatherInfo } from "@/components/ui/weather-info";
+import { WeatherInfo } from "@/components/ui/WeatherInfo";
 
 
 

@@ -1,4 +1,4 @@
-import type { WeatherInfo as ApiWeatherInfo } from '@/lib/weather-api';
+import type { WeatherInfo as ApiWeatherInfo } from '@/lib/weatherApi';
 
 type WeatherInfo = ApiWeatherInfo & { dayOfWeek: string };
 
