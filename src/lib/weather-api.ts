@@ -57,7 +57,6 @@ const fetchCurrentWeather = async (city: string): Promise<WeatherInfo | null> =>
     }
 }
 
-// ...existing code...
 
 interface DayForecast {
     date: string;
