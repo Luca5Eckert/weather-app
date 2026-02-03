@@ -34,6 +34,7 @@ function getDayPhrase(info : WeatherInfo) : string {
 
 export default function WeatherInfoComponent({city, dayOfWeek, temp, windKph, isDay, prec} : WeatherInfo) {
     const rainIntensity = getIntensiveOfRain(prec);
+    const dayPhrase = getDayPhrase({city, dayOfWeek, temp, windKph, isDay, prec});
     
     return (
         <section className="weather-info">
@@ -49,6 +50,10 @@ export default function WeatherInfoComponent({city, dayOfWeek, temp, windKph, is
                 <div>
                     <p>{windKph} km/h</p>
                     <p>{prec} %</p>
+                </div>
+
+                <div>
+                    <p>{dayPhrase}</p>
                 </div>
 
             </div>
