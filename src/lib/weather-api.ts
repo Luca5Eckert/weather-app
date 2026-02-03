@@ -1,7 +1,8 @@
 const BASE_URL = "https://api.weatherapi.com/v1";
 const DAYS_TO_FORECAST = 3; 
 
-interface WeatherInfo {
+export interface WeatherInfo {
+    city: string;
     temp: number;
     windKph: number;
     isDay: number;
@@ -46,6 +47,7 @@ const fetchCurrentWeather = async (city: string): Promise<WeatherInfo | null> =>
         const weather = await response.json(); 
 
         return {
+            "city": city,
             "temp": weather.current.temp_c,
             "windKph": weather.current.wind_kph,
             "isDay": weather.current.is_day,
@@ -58,13 +60,13 @@ const fetchCurrentWeather = async (city: string): Promise<WeatherInfo | null> =>
 }
 
 
-interface DayForecast {
+export interface DayForecast {
     date: string;
     temp: number;
     prec: number;
 }
 
-type NextDays = DayForecast[];
+export type NextDays = DayForecast[];
 
 /**
  * Busca a previsão para os próximos dias (retorna array com 0..DAYS_TO_FORECAST elementos).

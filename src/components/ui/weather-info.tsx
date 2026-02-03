@@ -1,11 +1,6 @@
-interface WeatherInfo {
-    city: string;
-    dayOfWeek: string;
-    temp: number;
-    windKph: number;
-    isDay: number;
-    prec: number;
-}
+import type { WeatherInfo as ApiWeatherInfo } from '@/lib/weather-api';
+
+type WeatherInfo = ApiWeatherInfo & { dayOfWeek: string };
 
 function getIntensiveOfRain(prec: number): string {
     switch (true){
@@ -17,8 +12,8 @@ function getIntensiveOfRain(prec: number): string {
     }
 }
 
-function getDayPhrase(info : WeatherInfo) : string {
-    type rule = { test: (i: WeatherInfo) => boolean, phrase: string };
+function getDayPhrase(info : ApiWeatherInfo) : string {
+    type rule = { test: (i: ApiWeatherInfo) => boolean, phrase: string };
 
     const rules: rule[] = [
         { test: (i) => i.isDay === 1 && i.prec === 0, phrase: "Um dia ensolarado!"},
@@ -27,14 +22,15 @@ function getDayPhrase(info : WeatherInfo) : string {
         { test: (i) => i.isDay === 0 && i.prec > 0, phrase: "Noite chuvosa, cuidado!"}
     ];
 
-    const match = rules.find(() => info);
+    const match = rules.find(r => r.test(info));
 
     return match ? match.phrase : "Aproveite o dia!";
 }
 
 export default function WeatherInfoComponent({city, dayOfWeek, temp, windKph, isDay, prec} : WeatherInfo) {
     const rainIntensity = getIntensiveOfRain(prec);
-    const dayPhrase = getDayPhrase({city, dayOfWeek, temp, windKph, isDay, prec});
+
+    const dayPhrase = getDayPhrase({city, temp, windKph, isDay, prec});
     
     return (
         <section className="weather-info">
@@ -49,7 +45,7 @@ export default function WeatherInfoComponent({city, dayOfWeek, temp, windKph, is
 
                 <div>
                     <p>{windKph} km/h</p>
-                    <p>{prec} %</p>
+                    <p>{prec} mm</p>
                 </div>
 
                 <div>
@@ -59,4 +55,5 @@ export default function WeatherInfoComponent({city, dayOfWeek, temp, windKph, is
             </div>
         </section>
     )
+    
 }
