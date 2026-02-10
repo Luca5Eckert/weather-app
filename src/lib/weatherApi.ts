@@ -1,7 +1,8 @@
 const BASE_URL = "https://api.weatherapi.com/v1";
-const DAYS_TO_FORECAST = 3;
+const DAYS_TO_FORECAST = 4;
 
 import type { WeatherInfo } from "@/types/WeatherInfo";
+import type { DayForest } from "@/types/DayForest";
 
 /**
  * 1. Busca o clima atual.
@@ -27,7 +28,6 @@ export async function fetchCurrentWeather(city: string): Promise<WeatherInfo | n
             "windKph": weather.current.wind_kph,
             "isDay": weather.current.is_day,
             "prec": weather.current.precip_mm,
-            // Correção da data: troca o espaço por 'T' para garantir compatibilidade em todos os browsers
             "dayOfWeek": new Date(weather.location.localtime.replace(' ', 'T')).toLocaleDateString('pt-BR', { weekday: 'long' })
         };
     } catch (erro) {
@@ -54,7 +54,7 @@ export async function fetchWeather(city : string): Promise<WeatherInfo | null> {
 /**
  * 3. Busca a previsão para os próximos dias
  */
-export const fetchNextThreeDays = async (city: string) => {
+export const fetchNextThreeDays = async (city: string) : Promise<DayForest[] | null> => {
     try {
         const apiKey = process.env.NEXT_PUBLIC_API_KEY;
         const url = `${BASE_URL}/forecast.json?key=${apiKey}&q=${encodeURIComponent(city)}&days=${DAYS_TO_FORECAST + 1}`;
@@ -76,5 +76,5 @@ export const fetchNextThreeDays = async (city: string) => {
         console.error(`Erro na previsão: ${erro}`);
         return null;
     }
-    
+
 };
